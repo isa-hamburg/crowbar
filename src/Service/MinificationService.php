@@ -4,14 +4,12 @@
 namespace Crowbar\Service;
 
 
-use COM;
 use Crowbar\Config;
 use Crowbar\Filesystem\SizeComputer;
 use Crowbar\OutputManager;
 use PhpParser\NodeTraverserInterface;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -56,11 +54,41 @@ class MinificationService
         "*.md",
         "GPL.txt",
         "LICENCE.txt",
+        "LICENSE.txt",
         "Readme",
         "Readme.txt",
         "Readme-TEX.txt",
         "ChangeLog.txt",
-        "Bugs"
+        "Bugs",
+        "LICENCE",
+        ".gitattributes",
+        ".gitignore",
+        "travis.yml",
+        "travis.yaml",
+        "Makefile",
+        ".editorconfig",
+        "README.rst",
+        "psalm.xml",
+        "docker-compose.yaml",
+        "docker-compose.yml",
+        ".gitmodules",
+        "Dockerfile",
+        "puli.json",
+        "LICENSE",
+        "AUTHORS",
+        ".styleci.yml",
+        ".styleco.yaml",
+        "appveyor.yml",
+        "appveyor.yaml",
+        ".pullapprove.yml",
+        ".pullapprove.yaml",
+        "COPYING.txt",
+        "LICENSE_AFL.txt",
+        "cssmin",
+        "phpunit.xml",
+        ".scrutinizer.yml",
+        ".scrutinizer.yaml",
+        ".gitattributes"
     ];
 
     /**
@@ -197,14 +225,14 @@ class MinificationService
 
         foreach($files as $fileInfo){
             foreach($config->getFilesToKeep() as $fileToKeep){
-                if(strpos($fileInfo->getPathname(), $fileToKeep) !== false){
+                if(strpos(strtolower($fileInfo->getPathname()), strtolower($fileToKeep)) !== false){
                     continue;
                 }
             }
 
             $fileName = $fileInfo->getFilenameWithoutExtension();
 
-            if(!in_array($fileName, $config->getLocalesToKeep())){
+            if(!in_array(strtolower($fileName), array_map("strtolower", $config->getLocalesToKeep()))){
                 $filesystem->remove($fileInfo->getPathname());
                 OutputManager::getInstance()->getOutput()->writeln("Deleting trash-file '{$fileInfo->getPathname()}'!");
             }

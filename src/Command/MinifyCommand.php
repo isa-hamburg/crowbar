@@ -42,6 +42,7 @@ class MinifyCommand extends Command
         $this->addArgument("inputPath", InputArgument::REQUIRED);
         $this->addOption("locales", "l", InputOption::VALUE_OPTIONAL, "The locales you want to keep in magento. The more you keep, the bigger it gets...", "de");
         $this->addOption("files", "f", InputOption::VALUE_OPTIONAL, "The files you want to keep. The more you keep, the bigger it gets...");
+        $this->addOption("minify", "m", InputOption::VALUE_OPTIONAL, "Whether to minify what safely can be minified! (no guarantees!)", true);
     }
 
     /**
