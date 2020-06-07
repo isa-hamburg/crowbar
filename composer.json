@@ -1,0 +1,16 @@
+{
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Crowbar\\": "src"
+        }
+    },
+    "require": {
+        "symfony/console": "^5.1",
+        "nikic/php-parser": "^4.5",
+        "symfony/finder": "^5.1",
+        "symfony/filesystem": "^5.1",
+        "doctrine/annotations": "dev-master"
+    }
+}
