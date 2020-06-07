@@ -63,11 +63,11 @@ class UselessCommentRemoveVisitor extends NodeVisitorAbstract
                     array_shift($commentLines)
                 ];
 
-                $newComments  = $newComments + $linesToKeep;
+                $newComments  = array_merge($newComments, $linesToKeep);
 
                 $newComments[] = array_pop($commentLines);
 
-                $node->setDocComment(new Doc(implode("\n", $linesToKeep)));
+                $node->setDocComment(new Doc(implode("\n", $newComments)));
             }else{
                 $node->setDocComment(new Doc(""));
             }
